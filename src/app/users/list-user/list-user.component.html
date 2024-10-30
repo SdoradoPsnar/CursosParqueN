@@ -1,0 +1,30 @@
+<h1>Lista de Usuarios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre de usuario</th>
+      <th>Email</th>
+      <th>Rol</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of userList">
+      <td>{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <ng-container [ngSwitch]="user.role">
+          <span *ngSwitchCase="'instructor'">Instructor</span>
+          <span *ngSwitchCase="'student'">Estudiante</span>
+          <span *ngSwitchDefault>Sin rol</span>
+        </ng-container>
+      </td>
+      <td>
+        <button (click)="deleteUser(user.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
