@@ -1,7 +1,7 @@
 <h1>Lista de Usuarios</h1>
 
-<table>
-  <thead>
+<p-table [value]="userList" [paginator]="true" [rows]="5" [responsiveLayout]="'scroll'">
+  <ng-template pTemplate="header">
     <tr>
       <th>ID</th>
       <th>Nombre de usuario</th>
@@ -9,22 +9,25 @@
       <th>Rol</th>
       <th>Acciones</th>
     </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of userList">
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr>
       <td>{{ user.id }}</td>
       <td>{{ user.username }}</td>
       <td>{{ user.email }}</td>
       <td>
         <ng-container [ngSwitch]="user.role">
-          <span *ngSwitchCase="'instructor'">Instructor</span>
-          <span *ngSwitchCase="'student'">Estudiante</span>
+          <span *ngSwitchCase="'instructor'" class="instructor-role">Instructor</span>
+          <span *ngSwitchCase="'student'" class="student-role">Estudiante</span>
           <span *ngSwitchDefault>Sin rol</span>
         </ng-container>
       </td>
       <td>
-        <button (click)="deleteUser(user.id)">Eliminar</button>
+        <button pButton type="button" icon="pi pi-trash" label="Eliminar"
+                class="p-button-danger p-button-sm"
+                (click)="deleteUser(user.id)">
+        </button>
       </td>
     </tr>
-  </tbody>
-</table>
+  </ng-template>
+</p-table>
