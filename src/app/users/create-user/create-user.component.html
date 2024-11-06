@@ -1,2 +1,30 @@
-<p>create-user works!</p>
-{{ userList | json }}
+<h1>Crear Usuario</h1>
+
+<p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+<form (ngSubmit)="createUser()">
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" id="email" [(ngModel)]="email" name="email" class="p-inputtext p-component" required />
+  </div>
+
+  <div class="form-group">
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" [(ngModel)]="password" name="password" class="p-inputtext p-component" required />
+  </div>
+
+  <div class="form-group">
+    <label for="role">Rol:</label>
+    <p-dropdown
+      [options]="roles"
+      [(ngModel)]="role"
+      name="role"
+      placeholder="Seleccione un rol"
+      [showClear]="true"
+      class="p-dropdown"
+      [required]="true"> <!-- Cambiado aquí -->
+    </p-dropdown>
+  </div>
+
+  <button pButton type="submit" label="Crear Usuario" class="p-button-success" [disabled]="!email || !password || !role"></button>
+</form>

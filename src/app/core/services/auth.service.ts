@@ -6,7 +6,10 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  private supabase = createClient(environment.SUPABASE_URL, environment.SUPABASE_KEY);
+  private supabase = createClient(
+    environment.SUPABASE_URL,
+    environment.SUPABASE_KEY
+  );
 
   async isLoggedIn(): Promise<boolean> {
     const { data: user } = await this.supabase.auth.getUser();

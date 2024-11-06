@@ -15,12 +15,11 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   async ngOnInit() {
-    this.showMenu = await this.authService.isLoggedIn();
-
-    this.router.events.subscribe(async (event) => {
+    const isAuthenticated = await this.authService.isLoggedIn();
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const isLoginRoute = this.router.url === '/login';
-        this.showMenu = await this.authService.isLoggedIn() && !isLoginRoute;
+        this.showMenu = isAuthenticated && !isLoginRoute;
       }
     });
 
