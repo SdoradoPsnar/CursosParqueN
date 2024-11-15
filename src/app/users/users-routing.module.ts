@@ -1,5 +1,5 @@
-import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [],
@@ -17,11 +17,13 @@ import { RouterModule } from "@angular/router";
         loadChildren: () =>
           import('./list-user/listuser.module').then((m) => m.ListUserModule),
       },
+      {
+        path: 'edit',
+        loadChildren: () =>
+          import('./edit-user/edituser.module').then((m) => m.EditUserModule),
+      },
     ]),
   ],
   exports: [RouterModule],
 })
-
-
-
-export class UsersRoutingModule{}
+export class UsersRoutingModule {}

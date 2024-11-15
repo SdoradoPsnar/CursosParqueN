@@ -4,27 +4,62 @@
 
 <form (ngSubmit)="createUser()">
   <div class="form-group">
+    <label for="username">Nombre de usuario:</label>
+    <input
+      type="text"
+      id="username"
+      [(ngModel)]="username"
+      name="username"
+      class="p-inputtext p-component"
+      required
+    />
+  </div>
+
+  <div class="form-group">
     <label for="email">Email:</label>
-    <input type="email" id="email" [(ngModel)]="email" name="email" class="p-inputtext p-component" required />
+    <input
+      type="email"
+      id="email"
+      [(ngModel)]="email"
+      name="email"
+      class="p-inputtext p-component"
+      required
+    />
   </div>
 
   <div class="form-group">
     <label for="password">Contraseña:</label>
-    <input type="password" id="password" [(ngModel)]="password" name="password" class="p-inputtext p-component" required />
+    <input
+      type="password"
+      id="password"
+      [(ngModel)]="password"
+      name="password"
+      class="p-inputtext p-component"
+      required
+    />
   </div>
 
   <div class="form-group">
     <label for="role">Rol:</label>
-    <p-dropdown
-      [options]="roles"
+    <select
       [(ngModel)]="role"
       name="role"
-      placeholder="Seleccione un rol"
-      [showClear]="true"
-      class="p-dropdown"
-      [required]="true"> <!-- Cambiado aquí -->
-    </p-dropdown>
+      id="role"
+      required
+      class="p-inputtext p-component"
+    >
+      <option value="">Seleccione un rol</option>
+      <option *ngFor="let option of roles" [value]="option.value">
+        {{ option.label }}
+      </option>
+    </select>
   </div>
 
-  <button pButton type="submit" label="Crear Usuario" class="p-button-success" [disabled]="!email || !password || !role"></button>
+  <button
+    pButton
+    type="submit"
+    label="Crear Usuario"
+    class="p-button-success"
+    [disabled]="!username || !email || !password || !role"
+  ></button>
 </form>

@@ -1,5 +1,6 @@
 <h1>Lista de Usuarios</h1>
-
+<button pButton label="Crear Usuario" icon="pi pi-user-plus" class="p-button-success p-button-sm"
+        [routerLink]="['/user/create']"></button>
 <p-table [value]="userList" [paginator]="true" [rows]="5" [responsiveLayout]="'scroll'">
   <ng-template pTemplate="header">
     <tr>
@@ -27,6 +28,10 @@
                 class="p-button-danger p-button-sm"
                 (click)="deleteUser(user.id)">
         </button>
+        <button pButton type="button" icon="pi pi-pencil" label="Editar"
+          class="p-button-warning p-button-sm"
+          (click)="editUser(user.id)">
+  </button>
       </td>
     </tr>
   </ng-template>

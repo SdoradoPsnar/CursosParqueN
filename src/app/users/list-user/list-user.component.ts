@@ -10,10 +10,7 @@ import { UsersService } from 'src/app/core/services/users/users.services';
 export class ListUserComponent {
   userList: any;
 
-  constructor(
-    private usersService: UsersService,
-    private router: Router
-  ) {}
+  constructor(private usersService: UsersService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -22,7 +19,7 @@ export class ListUserComponent {
   async loadUsers() {
     const result = await this.usersService.userList();
     this.userList = result.users;
-    console.log(this.userList);
+    // console.log(this.userList);
   }
 
   async deleteUser(userId: string) {
@@ -40,6 +37,6 @@ export class ListUserComponent {
   }
 
   editUser(userId: string) {
-    this.router.navigate(['/users/edit', userId]);
+    this.router.navigate(['/user/edit', userId]);
   }
 }

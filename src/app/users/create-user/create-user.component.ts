@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-user.component.scss'],
 })
 export class CreateUserComponent {
+  username: string = '';
   email: string = '';
   password: string = '';
   role: string = '';
@@ -21,21 +22,22 @@ export class CreateUserComponent {
   constructor(private usersService: UsersService, private router: Router) {}
 
   async createUser() {
-    if (!this.email || !this.password || !this.role) {
+    if (!this.username || !this.email || !this.password || !this.role) {
       this.errorMessage = 'Por favor complete todos los campos.';
       return;
     }
 
     const { error } = await this.usersService.createUser(
+      this.username,
       this.email,
       this.password,
       this.role
     );
-    if (error) {
-      this.errorMessage = error.message;
-      console.error('Error creando usuario: ', error);
+    if (error && (error as { message: string }).message) {
+      this.errorMessage = (error as { message: string }).message;
+      console.error('Error creando usuario:', error);
     } else {
-      this.router.navigate(['/users/list']);
+      this.router.navigate(['/user/list']);
     }
   }
 }

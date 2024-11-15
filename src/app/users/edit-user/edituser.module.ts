@@ -5,11 +5,11 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { RouterModule } from '@angular/router';
-import { CreateUserComponent } from './create-user.component';
-import { CreateUserRoutingModule } from './createuser-routing.module';
+import { EditUserComponent } from './edit-user.component';
+import { EditUserRoutingModule } from './edituser-routing.module';
 
 @NgModule({
-  declarations: [CreateUserComponent],
+  declarations: [EditUserComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -17,7 +17,7 @@ import { CreateUserRoutingModule } from './createuser-routing.module';
     InputTextModule,
     DropdownModule,
     RouterModule,
-    CreateUserRoutingModule,
+    EditUserRoutingModule,
   ],
 })
-export class CreateUserModule {}
+export class EditUserModule {}
