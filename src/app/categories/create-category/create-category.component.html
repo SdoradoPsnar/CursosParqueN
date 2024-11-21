@@ -1,0 +1,25 @@
+<h1>Crear Categoria</h1>
+
+<p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+<form (ngSubmit)="createCategory()">
+  <div class="form-group">
+    <label for="name">Nombre de la categoria:</label>
+    <input
+      type="text"
+      id="name"
+      [(ngModel)]="name"
+      name="name"
+      class="p-inputtext p-component"
+      required
+    />
+  </div>
+
+  <button
+    pButton
+    type="submit"
+    label="Crear Categoria"
+    class="p-button-success"
+    [disabled]="!name"
+  ></button>
+</form>

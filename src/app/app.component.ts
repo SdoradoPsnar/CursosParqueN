@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
     this.menuItems = [
       { label: 'Inicio', icon: 'pi pi-home', routerLink: ['/home'] },
       { label: 'Usuarios', icon: 'pi pi-users', routerLink: ['/user/list'] },
+      { label: 'Categorias de cursos', icon: 'pi pi-tags', routerLink: ['/categories/list'] },
       { label: 'Configuración', icon: 'pi pi-cog', routerLink: ['/settings'] },
       { label: 'Cerrar sesión', icon: 'pi pi-sign-out', command: () => this.logout() }
     ];

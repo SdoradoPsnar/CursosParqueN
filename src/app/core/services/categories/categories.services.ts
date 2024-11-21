@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from 'src/environments/environment';
-import * as bcrypt from 'bcryptjs';
-import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
+export class CategoriesService {
   private supabase: SupabaseClient;
 
   constructor() {
@@ -17,20 +15,17 @@ export class UsersService {
     );
   }
 
-  async userList() {
-    const { data: users, error } = await this.supabase
-      .from('users')
+  async listCategories() {
+    const { data: categories, error } = await this.supabase
+      .from('categories')
       .select('*');
-    return { users, error };
+    return { categories, error };
   }
 
-  async createUser(username: string, email: string, role: string) {
+  async createCategory(name: string) {
     try {
-      // Inserta el usuario en la tabla "users"
-      const { error: dbError } = await this.supabase.from('users').insert({
-        username,
-        email,
-        role,
+      const { error: dbError } = await this.supabase.from('categories').insert({
+        name
       });
 
       if (dbError) {
@@ -43,57 +38,47 @@ export class UsersService {
     }
   }
 
-  async userDelete(userId: string) {
+  async deleteCategory(categoryId: string) {
     const { error: dbError } = await this.supabase
-      .from('users')
+      .from('categories')
       .delete()
-      .eq('id', userId);
+      .eq('id', categoryId);
 
     return { error: dbError };
   }
 
-  async getUserById(userId: string) {
-    // Validar si el ID es un UUID válido
+  async getCategoryById(categoryId: string) {
     const isValidUUID = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-    if (!isValidUUID.test(userId)) {
-      console.error('ID no es un UUID válido:', userId);
-      return { user: null, error: { message: 'ID no es un UUID válido.' } };
+    if (!isValidUUID.test(categoryId)) {
+      console.error('ID no es un UUID válido:', categoryId);
+      return { category: null, error: { message: 'ID no es un UUID válido.' } };
     }
 
     const { data, error } = await this.supabase
-      .from('users')
+      .from('categories')
       .select('*')
-      .eq('id', userId)
+      .eq('id', categoryId)
       .single();
 
     if (error) {
-      console.error('Error obteniendo usuario:', error.message);
-      return { user: null, error };
+      console.error('Error obteniendo categoria:', error.message);
+      return { category: null, error };
     }
 
-    console.log('Usuario obtenido:', data);
-    return { user: data, error: null };
+    console.log('Categoria obtenido:', data);
+    return { category: data, error: null };
   }
 
-
-  // Función para convertir un entero en un UUID
-  private generateUUIDFromInteger(userId: number): string {
-    const prefix = '00000000-0000-0000-0000-';
-    const paddedId = userId.toString().padStart(12, '0'); // Asegura longitud de 12
-    return prefix + paddedId;
-  }
-
-  async updateUser(
-    userId: string, // UUID como string
-    updatedData: { username?: string; email?: string; role?: string }
+  async updateCategory(
+    categoryId: string,
+    updatedData: { name?: string;}
   ) {
-    // Validar si el ID es un UUID válido
     const isValidUUID = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-    if (!isValidUUID.test(userId)) {
+    if (!isValidUUID.test(categoryId)) {
       return { error: 'ID no es un UUID válido.', data: null };
     }
 
-    const allowedFields = ['username', 'email', 'role'];
+    const allowedFields = ['name'];
     const filteredData = Object.fromEntries(
       Object.entries(updatedData).filter(
         ([key, value]) => allowedFields.includes(key) && value !== undefined
@@ -107,9 +92,9 @@ export class UsersService {
 
     try {
       const { data, error, status } = await this.supabase
-        .from('users')
+        .from('categories')
         .update(filteredData)
-        .eq('id', userId) // Comparación con UUID
+        .eq('id', categoryId)
         .select();
 
       if (error) {
@@ -121,6 +106,4 @@ export class UsersService {
       return { error: 'Error inesperado durante la actualización.', data: null };
     }
   }
-
-
 }

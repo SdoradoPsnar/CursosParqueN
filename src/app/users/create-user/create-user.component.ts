@@ -22,7 +22,7 @@ export class CreateUserComponent {
   constructor(private usersService: UsersService, private router: Router) {}
 
   async createUser() {
-    if (!this.username || !this.email || !this.password || !this.role) {
+    if (!this.username || !this.email || !this.role) {
       this.errorMessage = 'Por favor complete todos los campos.';
       return;
     }
@@ -30,7 +30,6 @@ export class CreateUserComponent {
     const { error } = await this.usersService.createUser(
       this.username,
       this.email,
-      this.password,
       this.role
     );
     if (error && (error as { message: string }).message) {

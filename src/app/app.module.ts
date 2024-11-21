@@ -7,10 +7,9 @@ import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
-  declarations: [AppComponent, CategoriesComponent],
+  declarations: [AppComponent],
   imports: [BrowserModule, MenubarModule, AppRoutingModule],
   exports: [CoreModule],
   providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }],
