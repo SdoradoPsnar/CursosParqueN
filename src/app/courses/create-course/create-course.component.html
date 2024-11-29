@@ -1,0 +1,54 @@
+<h1>Crear Curso</h1>
+
+<p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+<form [formGroup]="createCourseForm" (ngSubmit)="createCourse()">
+  <div class="form-group">
+    <label for="title">Título</label>
+    <input
+      id="title"
+      type="text"
+      formControlName="title"
+      class="p-inputtext p-component"
+      placeholder="Ingrese el título del curso"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="description">Descripción</label>
+    <textarea
+      id="description"
+      formControlName="description"
+      class="p-inputtextarea p-component"
+      placeholder="Ingrese la descripción del curso"
+      required
+    ></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="instructor_id">Instructor:</label>
+    <select
+      formControlName="instructor_id"
+      id="instructor_id"
+      required
+      class="p-inputtext p-component"
+    >
+      <option value="">Seleccione un instructor</option>
+      <option *ngFor="let instructor of instructors" [value]="instructor.id">
+        {{ instructor.username }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Campo oculto para category_id -->
+  <input id="category_id" formControlName="category_id" type="hidden" />
+
+  <button
+    pButton
+    type="submit"
+    label="Crear Curso"
+    class="p-button-success"
+    [disabled]="createCourseForm.invalid"
+  ></button>
+</form>

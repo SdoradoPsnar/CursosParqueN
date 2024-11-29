@@ -122,5 +122,13 @@ export class UsersService {
     }
   }
 
+  async getInstructors() {
+    const { data: instructors, error } = await this.supabase
+      .from('users')
+      .select('id, username')
+      .eq('role', 'instructor');
+
+    return { instructors, error };
+  }
 
 }

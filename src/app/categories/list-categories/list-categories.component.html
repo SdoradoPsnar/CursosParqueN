@@ -23,6 +23,8 @@
                 class="p-button-warning p-button-sm"
                 (click)="editCategory(category.id)">
         </button>
+        <button pButton label="Cursos" icon="pi pi-plus" class="p-button-success p-button-sm"
+        [routerLink]="['/courses/list', category.id]"></button>
       </td>
     </tr>
   </ng-template>

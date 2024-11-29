@@ -21,6 +21,11 @@ import { RouterModule } from '@angular/router';
         path: 'edit',
         loadChildren: () =>
           import('./edit-category/editcategory.module').then((m) => m.EditCategoryModule),
+      },
+      {
+        path: 'courses',
+        loadChildren: () =>
+          import('src/app/courses/list-course/listcourse.module').then((m) => m.ListCourseModule),
       }
     ]),
   ],
