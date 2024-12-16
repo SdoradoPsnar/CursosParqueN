@@ -39,4 +39,8 @@ export class SupabaseService {
     const { data } = await this.supabase.auth.getSession();
     return data.session;
   }
+
+  getClient(): SupabaseClient {
+    return this.supabase;
+  }
 }

@@ -1,1 +1,8 @@
-<p>home works!</p>
+<div (mousemove)="onMouseMove($event)" style="height: 100vh; position: relative;">
+  <div *ngFor="let user of users" [style.left.px]="user.x" [style.top.px]="user.y" style="position: absolute;">
+    <span>{{ user.email }}</span>
+    <div
+      style="width: 10px; height: 10px; background: red; border-radius: 50%;"
+    ></div>
+  </div>
+</div>
